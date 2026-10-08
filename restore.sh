@@ -38,7 +38,7 @@ while true; do
     shopt -u nullglob
 
     
-    echo "Quarantined Files:"
+    echo "choose a file:"
     
     i=1
     for file in "${files[@]}"; do
@@ -47,7 +47,7 @@ while true; do
     done
     
 
-    read -p "Choose a file (by number): " choice
+    read -p ">  " choice
 
     
     if ! [[ "$choice" =~ ^[0-9]+$ ]] || [ "$choice" -lt 1 ] || [ "$choice" -gt "${#files[@]}" ]; then
@@ -60,11 +60,11 @@ while true; do
     selected_name=$(basename "$selected")
 
     
-    echo "Selected File: $selected_name"
-    echo "1. Restore this file back into $dir"
-    echo "2. Permanently delete this file from $malicious_dir"
-    echo "3. Leave as-is"
-    read -p "Choose an action (1-3): " action
+    echo "For $selected_name:"
+    echo "1: Restore this file back into dir (it was a false positive)"
+    echo "2: Permanently delete this file from malicious_dir (it was genuinely malicious)"
+    echo "3: Go back"
+    read -p "> " action
 
     case "$action" in
         1)
@@ -79,7 +79,7 @@ while true; do
             ;;
         3)
             # Leave file in quarantine and return to the list
-            echo "Left $selected_name as-is."
+            echo "Left $selected_name as is."
             ;;
         *)
             echo "Invalid choice."
