@@ -7,6 +7,7 @@ fi
 dir="$1"
 malicious_dir="$2"
 interval="$3"
+whitelist_file="whitelist.txt"
 
 if [ ! -d "$dir" ]; then 
    echo "error: source directory does not exist."
@@ -23,6 +24,9 @@ scan_directory() {
 	   [ -f "$file" ] || continue
 	   filename=$(basename "$file")
 	   is_malicious=0
+	   if [ -f "$whitelist_file" ] && grep -qxF "$filename" "$whitelist_file";  then
+		continue
+	   fi
 
 	   case "$filename" in
 		*.exe|*.bat|*.vbs|*.scr|*.ps1)
