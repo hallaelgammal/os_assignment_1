@@ -1,14 +1,18 @@
 # Lab 2: Antivirus Daemon & Restore Tool
 
 ## Overview & Folder Hierarchy
-This project implements a simple antivirus monitoring daemon and an interactive
- quarantine restore tool in Bash.
+This project implements a lightweight Linux/Bash antivirus solution consisting of
+ a background monitoring daemon (`antivirusd.sh`),
+ an interactive quarantine restoration tool (`restore.sh`),
+ and an automated periodic scanner (`antivirus-cron.sh`).
 
 ```text
 .
-├── antivirusd.sh        # Monitoring daemon script
-├── restore.sh           # Interactive quarantine restore tool
-├── Makefile             # Build and management Makefile
-├── README.md            # Documentation file
-├── test_dir/            # Monitored directory
+├── antivirusd.sh        # Core monitoring daemon script (Part 1)
+├── restore.sh           # Interactive quarantine restore tool (Part 2)
+├── antivirus-cron.sh    # Periodic cron scan script (Bonus 1)
+├── whitelist.txt        # Excluded filenames database (Bonus 2)
+├── Makefile             # Build and management Makefile (Part 3)
+├── README.md            # Project documentation (Part 4)
+├── test_dir/            # Monitored source directory
 └── malicious_dir/       # Quarantine directory
