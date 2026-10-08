@@ -7,6 +7,7 @@ fi
 
 dir="$1"
 malicious_dir="$2"
+whitelist_file="whitelist.txt"
 
 if [ ! -d "$dir" ]; then
     echo "error: source directory does not exist"
@@ -21,7 +22,7 @@ fi
 
 
 while true; do
-    
+     
  if [ -z "$(find "$malicious_dir" -type f -print -quit)" ]; then
         echo "No malicious files to review."
         exit 0
@@ -67,7 +68,15 @@ while true; do
     read -p "> " action
 
     case "$action" in
-        1)
+        1)  
+	    # bonus 2 
+	    read -p "do you want to add '$selected_name' to the whitelist? (y/n): " wl_ans
+	    if [[ "$wl_ans" =~ ^[Yy]$ ]]; then
+		echo "$selected_name" >> "$whitelist_file"
+		# keep whitelist clean with unique lines 
+		sort -u "$whitelist_file" -o "$whitelist_file"
+		echo "'$selected_name' added to $whitelist_file"
+	    fi
             # Restore file back to original directory
             mv "$selected" "$dir/$selected_name"
             echo "Restored $selected_name to $dir."
